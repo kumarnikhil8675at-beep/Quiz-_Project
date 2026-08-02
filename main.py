@@ -1,13 +1,16 @@
-from question_model import question
-from quiz_brain import brain
+from question_model import Question
+from quiz_brain import Brain
+from ui import UserInterface
 import data
-from ui import userinterface
 
-user_list=[]
+question_bank = []
 
-for a in data.question_data:
-    questions=question(a["question"],a["correct_answer"])
-    user_list.append(questions)
-    
-answers=brain(user_list)    
-userinterface(answers)
+for question in data.question_data:
+    new_question = Question(
+        question["question"],
+        question["correct_answer"]
+    )
+    question_bank.append(new_question)
+
+quiz = Brain(question_bank)
+ui = UserInterface(quiz)
