@@ -11,9 +11,12 @@ class UserInterface:
         self.window = tkinter.Tk()
         self.window.title("Quizzler")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
-
+        
+        self.score=tkinter.Label(text="score :",font=("Arial",10,"bold"),bg=THEME_COLOR,fg="white")
+        self.score.grid(column=2, row=1)
+        
         self.canvas = tkinter.Canvas(width=300, height=250, bg="white")
-        self.canvas.grid(column=1, row=1, columnspan=2, pady=20)
+        self.canvas.grid(column=1, row=2, columnspan=2, pady=20)
 
         self.content = self.canvas.create_text(
             150,
@@ -30,13 +33,13 @@ class UserInterface:
             image=self.true_image,
             command=self.check_true,
         )
-        self.true_button.grid(column=1, row=2)
+        self.true_button.grid(column=1, row=3)
 
         self.false_button = tkinter.Button(
             image=self.false_image,
             command=self.check_false,
         )
-        self.false_button.grid(column=2, row=2)
+        self.false_button.grid(column=2, row=3)
 
         self.change_text()
 
@@ -46,6 +49,7 @@ class UserInterface:
         self.canvas.config(bg="white")
 
         if self.quiz.still_has_questions():
+            self.score.config(text=f"Score : {self.quiz.score}")
             q_text = self.quiz.next_question()
             self.canvas.itemconfig(self.content, text=q_text)
         else:
